@@ -1,4 +1,4 @@
-// ✅ Society Management Backend Server
+// ✅ Society Management Backend
 
 const express = require("express");
 const mongoose = require("mongoose");
@@ -8,32 +8,28 @@ const path = require("path");
 
 dotenv.config();
 
-// Initialize express
 const app = express();
 
 // Middleware
 app.use(express.json());
 app.use(cors());
 
-// Serve React build files (optional for deployment)
-app.use(express.static(path.join(__dirname, "..", "frontend", "build")));
-
-// Routes
+// API Routes
 const authRoutes = require("./routes/authRoutes");
 const adminRoutes = require("./routes/adminRoutes");
 
 app.use("/api/auth", authRoutes);
 app.use("/api/admin", adminRoutes);
 
-// Default backend route
+// Test Route
 app.get("/", (req, res) => {
   res.send("✅ Society Management Backend Running Successfully!");
 });
 
-// Connect MongoDB
+// Connect MongoDB Atlas
 mongoose
   .connect(process.env.MONGO_URI)
-  .then(() => console.log("✅ MongoDB Connected Successfully"))
+  .then(() => console.log("✅ MongoDB Connected Successfully (Atlas)"))
   .catch((err) => console.log("❌ MongoDB Connection Error:", err));
 
 // Start Server
